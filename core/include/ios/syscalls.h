@@ -14,6 +14,7 @@
 #pragma GCC optimize ("O1")
 #include "types.h"
 #include "ios/ipc.h"
+#include "ios/ahb.h"
 
 s32 OSCreateThread(u32 main, void *arg, u32 *stack_top, u32 stacksize, u32 priority, u32 detached);
 s32 OSJoinThread(u32 threadId, u32* returnedValue);
@@ -51,6 +52,11 @@ s32 OSWriteFDAsync(s32 fd, const void *buf, u32 len, u32 messageQueueId, IpcMess
 s32 OSSeekFDAsync(s32 fd, s32 offset, s32 origin, u32 messageQueueId, IpcMessage* message);
 s32 OSIoctlFDAsync(s32 fd, u32 requestId, void *inputBuffer, u32 inputBufferLength, void *outputBuffer, u32 outputBufferLength, u32 messageQueueId, IpcMessage* message);
 s32 OSIoctlvFDAsync(s32 fd, u32 requestId, u32 vectorInputCount, u32 vectorIOCount, IoctlvMessageData *vectors, u32 messageQueueId, IpcMessage* message);
+void OSAhbFlushFrom(AHBDEV type);
+void OSAhbFlushTo(AHBDEV type);
+void OSDCInvalidateRange(const void* start, u32 size);
+void OSDCFlushRange(const void *start, u32 size);
+u32 OSVirtualToPhysical(u32 virtualAddress);
 
 //special IOS syscall to print something to debug device
 void OSPrintk(const char* str);
